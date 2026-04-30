@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://vaygy25l2om4"]
+
+[ext_resource type="Script" uid="uid://c3tkn788b2aej" path="res://main.gd" id="1_glv2v"]
+[ext_resource type="Shader" uid="uid://d3oi4ug0if3tm" path="res://Main.gdshader" id="2_uu6xs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r0du0"]
+shader = ExtResource("2_uu6xs")
+shader_parameter/time_scale = 1.0
+shader_parameter/intensity = 0.02
+
+[node name="Main" type="Node2D" unique_id=1947040387]
+script = ExtResource("1_glv2v")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2072265307]
+
+[node name="RandomButton" type="Button" parent="CanvasLayer" unique_id=1206469220]
+offset_left = 391.99997
+offset_top = -6.9999995
+offset_right = 472.99997
+offset_bottom = 24.0
+scale = Vector2(5.614309, 7.1711016)
+text = "RANDOM
+"
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1615943001]
+material = SubResource("ShaderMaterial_r0du0")
+anchors_preset = -1
+anchor_right = 0.29200003
+anchor_bottom = 0.27800003
+offset_right = -336.38403
+offset_bottom = -180.14401
+scale = Vector2(28.695639, 16.093517)
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="VolumeSlider" type="HSlider" parent="CanvasLayer" unique_id=1992784311]
+offset_left = 15.0
+offset_top = 339.0
+offset_right = 201.56024
+offset_bottom = 376.19708
+scale = Vector2(0.943395, 1.2635393)
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="PitchSlider" type="HSlider" parent="CanvasLayer" unique_id=867665401]
+offset_left = 11.0
+offset_top = 233.0
+offset_right = 158.0
+offset_bottom = 303.0
+min_value = 0.5
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="SpeedSlider" type="HSlider" parent="CanvasLayer" unique_id=1898802042]
+offset_left = 14.0
+offset_top = 298.0
+offset_right = 161.0
+offset_bottom = 357.0
+min_value = 0.2
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="FractalSlider" type="HSlider" parent="CanvasLayer" unique_id=735888879]
+offset_left = 5.0
+offset_top = 221.0
+offset_right = 144.0
+offset_bottom = 271.0
+min_value = 1.0
+max_value = 50.0
+value = 5.0
+
+[node name="FractalLabel" type="Label" parent="CanvasLayer" unique_id=967411721]
+offset_right = 40.0
+offset_bottom = 83.0
+theme_override_font_sizes/font_size = 60
+
+[node name="Player" type="AudioStreamPlayer2D" parent="." unique_id=1683648843]
+
+[connection signal="pressed" from="CanvasLayer/RandomButton" to="." method="_on_random_button_pressed"]
