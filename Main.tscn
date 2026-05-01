@@ -13,70 +13,141 @@ script = ExtResource("1_glv2v")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2072265307]
 
-[node name="RandomButton" type="Button" parent="CanvasLayer" unique_id=1206469220]
-offset_left = 391.99997
-offset_top = -6.9999995
-offset_right = 472.99997
-offset_bottom = 24.0
-scale = Vector2(5.614309, 7.1711016)
-text = "RANDOM
-"
-
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1615943001]
 material = SubResource("ShaderMaterial_r0du0")
 anchors_preset = -1
-anchor_right = 0.29200003
-anchor_bottom = 0.27800003
-offset_right = -336.38403
-offset_bottom = -180.14401
+anchor_right = 0.287
+anchor_bottom = 0.321
+offset_right = -330.624
+offset_bottom = -208.00801
 scale = Vector2(28.695639, 16.093517)
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="VolumeSlider" type="HSlider" parent="CanvasLayer" unique_id=1992784311]
-offset_left = 15.0
-offset_top = 339.0
-offset_right = 201.56024
-offset_bottom = 376.19708
-scale = Vector2(0.943395, 1.2635393)
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=613256974]
+offset_right = 215.0
+offset_bottom = 315.0
+scale = Vector2(2.2142925, 3.2857337)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel" unique_id=285337321]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 516.0
+scale = Vector2(0.6375119, 0.4864431)
+
+[node name="SoundLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=172926157]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Sound Controls"
+
+[node name="Volume" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1171839769]
+layout_mode = 2
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1992784311]
+layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 0.8
 
-[node name="PitchSlider" type="HSlider" parent="CanvasLayer" unique_id=867665401]
-offset_left = 11.0
-offset_top = 233.0
-offset_right = 158.0
-offset_bottom = 303.0
+[node name="Pitch" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1013527996]
+layout_mode = 2
+text = "Pitch"
+
+[node name="PitchSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=867665401]
+layout_mode = 2
 min_value = 0.5
 max_value = 2.0
 step = 0.01
 value = 1.0
 
-[node name="SpeedSlider" type="HSlider" parent="CanvasLayer" unique_id=1898802042]
-offset_left = 14.0
-offset_top = 298.0
-offset_right = 161.0
-offset_bottom = 357.0
+[node name="SoundSpeed" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=839274477]
+layout_mode = 2
+text = "Sound Speed"
+
+[node name="RandomSpeedSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1898802042]
+layout_mode = 2
 min_value = 0.2
 max_value = 2.0
 step = 0.01
 value = 1.0
 
-[node name="FractalSlider" type="HSlider" parent="CanvasLayer" unique_id=735888879]
-offset_left = 5.0
-offset_top = 221.0
-offset_right = 144.0
-offset_bottom = 271.0
+[node name="FractalLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=967411721]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Fractal Controls"
+
+[node name="Quatity" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1048888650]
+layout_mode = 2
+text = "Quantity"
+
+[node name="FractalCountSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=735888879]
+layout_mode = 2
 min_value = 1.0
 max_value = 50.0
 value = 5.0
 
-[node name="FractalLabel" type="Label" parent="CanvasLayer" unique_id=967411721]
-offset_right = 40.0
-offset_bottom = 83.0
-theme_override_font_sizes/font_size = 60
+[node name="SpinSpeed" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1186412523]
+layout_mode = 2
+text = "Spin Speed"
+
+[node name="FractalSpinSpeedSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=794744700]
+layout_mode = 2
+
+[node name="MoveSpeed" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=465288981]
+layout_mode = 2
+text = "Move Speed"
+
+[node name="FractalMoveSpeedSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=2134565378]
+layout_mode = 2
+max_value = 3.0
+step = 0.1
+
+[node name="ParticleLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=207034305]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Particle Controls"
+
+[node name="ParticleCount" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1610243663]
+layout_mode = 2
+text = "Quantity"
+
+[node name="ParticleCountSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1634019864]
+layout_mode = 2
+min_value = 10.0
+max_value = 2000.0
+step = 10.0
+value = 10.0
+
+[node name="PSpeed" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=425532944]
+layout_mode = 2
+text = "Speed"
+
+[node name="ParticleSpeedSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=797986055]
+layout_mode = 2
+
+[node name="BlobLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1766812913]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Blob Controls"
+
+[node name="BCount" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1134355691]
+layout_mode = 2
+text = "Quantity"
+
+[node name="BlobCountSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1355144297]
+layout_mode = 2
+
+[node name="RandomButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer" unique_id=1206469220]
+layout_mode = 2
+text = "RANDOM
+"
+
+[node name="Hint" type="Label" parent="CanvasLayer/Panel/VBoxContainer" unique_id=101548952]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Use 1-9 keys to play sound yourself"
 
 [node name="Player" type="AudioStreamPlayer2D" parent="." unique_id=1683648843]
 
-[connection signal="pressed" from="CanvasLayer/RandomButton" to="." method="_on_random_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/RandomButton" to="." method="_on_random_button_pressed"]

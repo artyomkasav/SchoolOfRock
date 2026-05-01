@@ -41,5 +41,9 @@ func _draw():
 
 		pts.append(Vector2(cos(a), sin(a)) * r)
 
-	draw_colored_polygon(pts, blob_color)
+	var outline_color = blob_color
+	outline_color.a = 0.9
+
+	draw_polyline(pts, outline_color, 4.0, true)
+	draw_polyline(pts, Color(outline_color.r, outline_color.g, outline_color.b, 0.35), 10.0, true)
 	draw_polyline(pts, Color(blob_color.r, blob_color.g, blob_color.b, 0.9), 3.0, true)

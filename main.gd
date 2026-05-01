@@ -15,6 +15,13 @@ var speed_value = 1.0
 var fractals = []
 var fractal_count = 20
 var pulse_strength = 0.0
+var fractal_move_speed_value = 1.0
+var fractal_spin_speed_value = 1.0
+
+var particle_speed_value = 1.0
+var particle_count_value = 80
+
+var blob_count_value = 5
 var sounds = [
 	preload("res://sounds/s1.mp3"),
 	preload("res://sounds/s2.mp3"),
@@ -27,15 +34,26 @@ var sounds = [
 	preload("res://sounds/s9.wav"),
 ]
 func _ready() -> void:
-	$CanvasLayer/VolumeSlider.value_changed.connect(_on_volume_changed)
-	$CanvasLayer/PitchSlider.value_changed.connect(_on_pitch_changed)
-	$CanvasLayer/SpeedSlider.value_changed.connect(_on_speed_changed)
-	$CanvasLayer/FractalSlider.value_changed.connect(_on_fractal_slider_changed)
-	$CanvasLayer/FractalLabel.text = "Fractals: " + str(fractal_count)
+	randomize()
+
+	var ui = $CanvasLayer/Panel/VBoxContainer
+
+	ui.get_node("VolumeSlider").value_changed.connect(_on_volume_changed)
+	ui.get_node("PitchSlider").value_changed.connect(_on_pitch_changed)
+	ui.get_node("RandomSpeedSlider").value_changed.connect(_on_speed_changed)
+	ui.get_node("FractalCountSlider").value_changed.connect(_on_fractal_slider_changed)
+	ui.get_node("FractalMoveSpeedSlider").value_changed.connect(_on_fractal_move_speed_changed)
+	ui.get_node("FractalSpinSpeedSlider").value_changed.connect(_on_fractal_spin_speed_changed)
+	ui.get_node("ParticleCountSlider").value_changed.connect(_on_particle_count_changed)
+	ui.get_node("ParticleSpeedSlider").value_changed.connect(_on_particle_speed_changed)
+	ui.get_node("BlobCountSlider").value_changed.connect(_on_blob_count_changed)
+	$CanvasLayer/ColorRect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 	for i in range(max_players):
 		var new_player = AudioStreamPlayer.new()
 		add_child(new_player)
 		audio_players.append(new_player)
+
 	create_particles()
 	create_fractals()
 func play_sound(index):
@@ -70,16 +88,16 @@ func _input(event):
 			KEY_5:
 				play_sound(4)
 			KEY_6:
-				play_sound(4)
+				play_sound(5)
 			KEY_7:
-				play_sound(4)
+				play_sound(6)
 			KEY_8:
-				play_sound(4)
+				play_sound(7)
 			KEY_9:
-				play_sound(4)
+				play_sound(8)
 
 func spawn_visual(index := 0):
-	for i in range(35):
+	for i in range(blob_count_value):
 		var b = blob_scene.instantiate()
 
 		b.position = Vector2(
@@ -129,8 +147,8 @@ func draw_fractal_spiral():
 	
 	for f in fractals:
 		var center = Vector2(
-			screen.x * 0.5 + sin(t * f["move_speed"] + f["phase"]) * screen.x * 0.35,
-			screen.y * 0.5 + cos(t * f["move_speed"] * 1.3 + f["phase"]) * screen.y * 0.35
+			screen.x * 0.5 + sin(t * f["move_speed"] * fractal_move_speed_value + f["phase"]) * screen.x * 0.35,
+			screen.y * 0.5 + cos(t * f["move_speed"] * fractal_move_speed_value * 1.3 + f["phase"]) * screen.y * 0.35
 		)
 		
 		var points = PackedVector2Array()
@@ -138,13 +156,11 @@ func draw_fractal_spiral():
 		for i in range(f["points"]):
 			var n = float(i)
 			
-			var angle = n * 0.12 + t * f["spin_speed"] + sin(n * 0.6 + t) * 10.0
+			var angle = n * 0.12 + t * f["spin_speed"] * fractal_spin_speed_value + sin(n * 0.6 + t) * 10.0
 			
 			var radius = sqrt(n) * f["size"]
 			radius += sin(t * 2.0 + n * 0.03 + f["phase"]) * 40.0
 			radius += cos(t * 1.3 + n * 0.015) * 25.0
-			
-			# связь с музыкой / звуком
 			radius += pulse_strength * 120.0
 			
 			var pos = center + Vector2(cos(angle), sin(angle)) * radius
@@ -162,7 +178,7 @@ func create_fractals():
 	for i in range(fractal_count):
 		fractals.append({
 			"center": Vector2(randf() * screen.x, randf() * screen.y),
-			"move_speed": randf_range(0.2, 1.2),
+			"move_speed": randf_range(1.0, 3.2),
 			"spin_speed": randf_range(0.4, 2.5),
 			"size": randf_range(4.0, 11.0),
 			"phase": randf() * 100.0,
@@ -180,19 +196,6 @@ func create_particles():
 			"hue": randf()
 		})
 
-#func play_random_sequence():
-	#while is_playing:
-		#var scale = [0, 2, 4, 5, 7] 
-		#var index = scale[randi() % scale.size()] % sounds.size()
-		#play_sound(index)
-		#await get_tree().create_timer(randf_range(0.2, 0.6)).timeout
-
-#func _on_random_button_pressed() -> void:
-	#is_playing = !is_playing
-	#if is_playing:
-		#play_random_sequence()
-
-#SLIDERS
 func _on_volume_changed(value):
 	volume_value = value
 
@@ -206,15 +209,36 @@ func _on_random_button_pressed():
 	is_playing = !is_playing
 	
 	if is_playing:
+		$CanvasLayer/Panel/VBoxContainer/RandomButton.text = "STOP RANDOM"
 		play_random_sequence()
-		
+	else:
+		$CanvasLayer/Panel/VBoxContainer/RandomButton.text = "START RANDOM"
+
+func _on_fractal_move_speed_changed(value):
+	fractal_move_speed_value = value
+
+func _on_fractal_spin_speed_changed(value):
+	fractal_spin_speed_value = value
+
+func _on_particle_speed_changed(value):
+	particle_speed_value = value
+
+func _on_blob_count_changed(value):
+	blob_count_value = int(value)
+
+func _on_particle_count_changed(value):
+	particle_count_value = int(value)
+	particle_count = particle_count_value
+	particles.clear()
+	create_particles()
+
 func _on_fractal_slider_changed(value):
 	fractal_count = int(value)
 	fractals.clear()
 	create_fractals()
 	
 	if has_node("CanvasLayer/FractalLabel"):
-		$CanvasLayer/FractalLabel.text = "Fractals: " + str(fractal_count)
+		$CanvasLayer/Panel/VBoxContainer/FractalLabel.text = "Fractals: " + str(fractal_count)
 
 func play_random_sequence():
 	while is_playing:
@@ -228,7 +252,7 @@ func _process(delta):
 	var screen = get_viewport_rect().size
 	pulse_strength = lerp(pulse_strength, 0.0, delta * 3.0)
 	for p in particles:
-		p["pos"] += p["vel"] * speed_value
+		p["pos"] += p["vel"] * speed_value * particle_speed_value
 		
 		if p["pos"].x < 0 or p["pos"].x > screen.x:
 			p["vel"].x *= -1
